@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import useImageFetcher from './useImageFetcher';
 import ImageButton from './ImageButton';
 import Slider from './ImageSlider';
@@ -16,10 +16,16 @@ const App: React.FC = () => {
     handleSliderChange
   } = useImageFetcher();
 
+  const [animate, setAnimate] = useState(false);
+
+  useEffect(() => {
+    setAnimate(true);
+  }, []);
+
   return (
     <div className='flex items-center justify-center min-h-screen flex-col bg-gray-100 px-4 sm:px-0'>
-      <div className="flex flex-col sm:flex-row items-center w-full sm:w-200 mb-10 p-5 bg-white rounded-lg shadow-lg">
-        <ImageButton onClick={fetchPreviousImage} disabled={currentIndex <= 0}>
+      <div className={`flex flex-col sm:flex-row items-center w-full sm:w-200 mb-10 p-5 bg-white rounded-lg shadow-lg transition-all duration-1000 ${animate ? 'opacity-100 transform translate-y-0' : 'opacity-0 -translate-y-10'}`}>
+        <ImageButton className="duration-2000" onClick={fetchPreviousImage} disabled={currentIndex <= 0}>
           Previous
         </ImageButton>
         <Slider
@@ -30,7 +36,7 @@ const App: React.FC = () => {
             totalImages={imageHistory.length}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleSliderChange(Number(e.target.value))}
         />
-        <ImageButton onClick={fetchNextImage} disabled={showHourGlass}>
+        <ImageButton className="duration-2000" onClick={fetchNextImage} disabled={showHourGlass}>
           {showHourGlass ? 'Loading...' : 'Next'}
         </ImageButton>
       </div>

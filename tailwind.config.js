@@ -10,6 +10,13 @@ module.exports = {
       height: {
         '150': '600px',
       },
+      transitionProperty: {
+        'height': 'height',
+        'spacing': 'margin, padding',
+      },
+      transitionDuration: {
+        '2000': '2000ms',
+      }
     },
   },
   variants: {
