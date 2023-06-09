@@ -18,14 +18,16 @@ const App: React.FC = () => {
 
   return (
     <div className='flex items-center justify-center min-h-screen flex-col bg-gray-100 px-4 sm:px-0'>
-      <div className="flex flex-col sm:flex-row justify-between items-center w-full sm:w-200 mb-10 p-5 bg-white rounded-lg shadow-lg">
+      <div className="flex flex-col sm:flex-row items-center w-full sm:w-200 mb-10 p-5 bg-white rounded-lg shadow-lg">
         <ImageButton onClick={fetchPreviousImage} disabled={currentIndex <= 0}>
           Previous
         </ImageButton>
         <Slider
+            className="mx-4 sm:mx-10 flex-grow"
             min="0"
             max={imageHistory.length - 1} 
             value={currentIndex} 
+            totalImages={imageHistory.length}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleSliderChange(Number(e.target.value))}
         />
         <ImageButton onClick={fetchNextImage} disabled={showHourGlass}>
