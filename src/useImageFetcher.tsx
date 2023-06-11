@@ -45,27 +45,29 @@ const useImageFetcher = () => {
     }
   }
 
+  // Remove the hardcoded time interval and make it depend on countdown state
   useEffect(() => {
     fetchImage();
     const imageInterval = setInterval(() => {
       fetchImage();
-      setCountdown(90);
-    }, 90000);
+      setCountdown(countdown);
+    }, countdown * 1000); // countdown is in seconds, convert it to milliseconds
 
     return () => {
       clearInterval(imageInterval);
     };
-  }, [fetchImage]);
+  }, [fetchImage, countdown]);
 
+  // Adjust the countdown timer to decrease every second until it reaches 0
   useEffect(() => {
-    const countdownInterval = setInterval(() => {
+    const countdownInterval = countdown > 0 ? setInterval(() => {
       setCountdown(prevCountdown => prevCountdown - 1);
-    }, 1000);
+    }, 1000) : null;
 
     return () => {
-      clearInterval(countdownInterval);
+      if (countdownInterval) clearInterval(countdownInterval);
     };
-  }, []);
+  }, [countdown]);
 
   useEffect(() => {
     if (countdown <= 5) {
@@ -81,6 +83,7 @@ const useImageFetcher = () => {
     setCurrentIndex,
     showHourGlass, 
     countdown, 
+    setCountdown,  // Add setCountdown so we can update the countdown externally
     altText, 
     fetchImage, 
     fetchPreviousImage, 

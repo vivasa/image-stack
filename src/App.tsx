@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import useImageFetcher from './useImageFetcher';
 import ImageButton from './ImageButton';
 import Slider from './ImageSlider';
+import CountdownInput from './CountdownInput';
 
 const App: React.FC = () => {
   const {
@@ -9,6 +10,7 @@ const App: React.FC = () => {
     currentIndex, 
     showHourGlass, 
     countdown, 
+    setCountdown, 
     altText, 
     fetchImage, 
     fetchPreviousImage, 
@@ -45,6 +47,17 @@ const App: React.FC = () => {
           {imageHistory[currentIndex] && <img className="absolute w-full h-full object-cover" src={imageHistory[currentIndex]} alt={altText} />}
           {showHourGlass && <div className='w-16 h-16 border-t-4 border-blue-500 rounded-full animate-spin'></div>}
         </div>
+      </div>
+      {/* Countdown Display */}
+      <div className='w-full sm:w-200 mt-4'>
+        <p className='text-center'>Refresh in {countdown} seconds</p>
+      </div>
+      {/* Countdown Slider */}
+      <div className='w-full sm:w-200 mt-4'>
+        <CountdownInput
+          countdown={countdown}
+          setCountdown={setCountdown}
+        />
       </div>
     </div>
   );
