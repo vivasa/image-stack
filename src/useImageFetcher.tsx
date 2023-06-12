@@ -47,16 +47,28 @@ const useImageFetcher = () => {
 
   // Remove the hardcoded time interval and make it depend on countdown state
   useEffect(() => {
+    // Fetch the initial image
     fetchImage();
-    const imageInterval = setInterval(() => {
-      fetchImage();
-      setCountdown(countdown);
-    }, countdown * 1000); // countdown is in seconds, convert it to milliseconds
+
+    // Setup the countdown and image fetching interval
+    const countdownInterval = setInterval(() => {
+      setCountdown(prevCountdown => {
+        if (prevCountdown > 1) {
+          // Decrease countdown by 1
+          return prevCountdown - 1;
+        } else {
+          // Fetch a new image and reset countdown
+          fetchImage();
+          return 90; // Reset countdown to 90 seconds
+        }
+      });
+    }, 1000); // Run every second
 
     return () => {
-      clearInterval(imageInterval);
+      clearInterval(countdownInterval);
     };
-  }, [fetchImage, countdown]);
+  }, [fetchImage]);
+
 
   // Adjust the countdown timer to decrease every second until it reaches 0
   useEffect(() => {

@@ -41,23 +41,20 @@ const App: React.FC = () => {
         <ImageButton className="duration-2000" onClick={fetchNextImage} disabled={showHourGlass}>
           {showHourGlass ? 'Loading...' : 'Next'}
         </ImageButton>
+        {showHourGlass && <div className='w-1 h-1 border-t-4 border-blue-500 rounded-full animate-spin'></div>}
+        <CountdownInput
+          countdown={countdown}
+          setCountdown={setCountdown}
+        />
       </div>
       <div className='w-full sm:w-200 h-64 sm:h-200 bg-white rounded-lg shadow-lg flex items-center justify-center'>
         <div className='relative w-full h-full flex items-center justify-center'>
           {imageHistory[currentIndex] && <img className="absolute w-full h-full object-cover" src={imageHistory[currentIndex]} alt={altText} />}
-          {showHourGlass && <div className='w-16 h-16 border-t-4 border-blue-500 rounded-full animate-spin'></div>}
         </div>
       </div>
       {/* Countdown Display */}
       <div className='w-full sm:w-200 mt-4'>
         <p className='text-center'>Refresh in {countdown} seconds</p>
-      </div>
-      {/* Countdown Slider */}
-      <div className='w-full sm:w-200 mt-4'>
-        <CountdownInput
-          countdown={countdown}
-          setCountdown={setCountdown}
-        />
       </div>
     </div>
   );
