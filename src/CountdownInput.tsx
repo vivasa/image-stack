@@ -1,4 +1,3 @@
-// CountdownInput.tsx
 import React from 'react';
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
@@ -6,9 +5,10 @@ import 'react-circular-progressbar/dist/styles.css';
 interface CountdownInputProps {
   countdown: number;
   setCountdown: (value: number) => void;
+  className?: string; // add this line
 }
 
-const CountdownInput: React.FC<CountdownInputProps> = ({ countdown, setCountdown }) => {
+const CountdownInput: React.FC<CountdownInputProps> = ({ countdown, setCountdown, className }) => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = Number(e.target.value);
     setCountdown(value * 60); // converting minutes to seconds
@@ -17,7 +17,7 @@ const CountdownInput: React.FC<CountdownInputProps> = ({ countdown, setCountdown
   const percentage = (countdown / (6 * 60)) * 100; // convert to percentage
 
   return (
-    <div className="flex items-center">
+    <div className={`flex items-center ${className}`}>
       <CircularProgressbar 
         value={percentage} 
         text={`${Math.floor(countdown / 60)} min`} 
