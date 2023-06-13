@@ -42,6 +42,8 @@ const App: React.FC = () => {
           {showHourGlass ? 'Loading...' : 'Next'}
         </ImageButton>
         {showHourGlass && <div className='w-1 h-1 border-t-4 border-blue-500 rounded-full animate-spin mx-2'></div>}
+      </div>
+      <div className={`flex flex-col sm:flex-row items-center justify-between w-full sm:w-200 mb-10 p-5 bg-white rounded-lg shadow-lg transition-all duration-1000 ${animate ? 'opacity-100 transform translate-y-0' : 'opacity-0 -translate-y-10'}`}>
         <CountdownInput
           className="mx-2"
           countdown={countdown}
