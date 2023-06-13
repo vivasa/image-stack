@@ -28,9 +28,9 @@ const CountdownInput: React.FC<CountdownInputProps> = ({ countdown, setCountdown
       />
       <input 
         type="range" 
-        min="0.5" 
-        max="6" 
-        step="0.5" 
+        min={30 / 60} // 30 seconds
+        max={360 / 60} // 360 seconds
+        step={1 / 60} // 1 second
         value={countdown / 60} 
         onChange={handleChange} 
       />
