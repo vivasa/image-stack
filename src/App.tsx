@@ -12,7 +12,6 @@ const App: React.FC = () => {
     countdown, 
     setCountdown, 
     altText, 
-    fetchImage, 
     fetchPreviousImage, 
     fetchNextImage,
     handleSliderChange

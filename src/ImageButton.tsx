@@ -3,6 +3,11 @@ import React from 'react';
 interface ImageButtonProps {
   children: React.ReactNode;
   onClick: () => void;
+  /**
+   * This is a boolean prop that determines whether the ImageButton is 
+   * disabled or not. If true, the button's opacity is reduced and it 
+   * cannot be clicked.
+   */
   disabled: boolean;
   className?: string;
 }

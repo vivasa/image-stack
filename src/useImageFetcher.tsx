@@ -1,10 +1,36 @@
 import { useState, useEffect, useCallback } from 'react';
 
 const useImageFetcher = () => {
+  /**
+   * This is an array that holds the URLs of all fetched images. 
+   * It is used to store the history of all fetched images so that 
+   * the user can navigate between them.
+   */
   const [imageHistory, setImageHistory] = useState<string[]>([]);
+  /**
+   * This is an index that points to the current image being displayed 
+   * from the imageHistory array. It is updated when the user navigates 
+   * between images or a new image is fetched.
+   */
   const [currentIndex, setCurrentIndex] = useState<number>(0);
+  /**
+   * This is a boolean variable that is set to true when the countdown is 
+   * less than or equal to 5, indicating that the hourglass should be 
+   * displayed. It is used to control the visibility of the hourglass UI element.
+   */
   const [showHourGlass, setShowHourGlass] = useState<boolean>(false);
+  /**
+   * This is a countdown timer that starts from 90 seconds and decreases 
+   * by one every second. When it reaches zero, a new image is fetched and 
+   * the countdown is reset to 90 seconds. This is used to automatically 
+   * fetch a new image every 90 seconds.
+   */
   const [countdown, setCountdown] = useState<number>(90);
+  /**
+   * This stores the alternative text description for the current image fetched 
+   * from the Unsplash API. It is used for accessibility purposes, providing a 
+   * description of the image for those who can't see it.
+   */
   const [altText, setAltText] = useState<string>('');
 
   const fetchImage = useCallback(() => {
@@ -49,6 +75,8 @@ const useImageFetcher = () => {
   useEffect(() => {
     // Fetch the initial image
     fetchImage();
+    //Set the initial indexes to latest image
+    setCurrentIndex(imageHistory.length - 1);
 
     // Setup the countdown and image fetching interval
     const countdownInterval = setInterval(() => {
