@@ -1,11 +1,12 @@
 import React from 'react';
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
+import clsx from 'clsx';
 
 interface CountdownInputProps {
   countdown: number;
   setCountdown: (value: number) => void;
-  className?: string; // add this line
+  className?: string;
 }
 
 const CountdownInput: React.FC<CountdownInputProps> = ({ countdown, setCountdown, className }) => {
@@ -17,20 +18,22 @@ const CountdownInput: React.FC<CountdownInputProps> = ({ countdown, setCountdown
   const percentage = (countdown / (6 * 60)) * 100; // convert to percentage
 
   return (
-    <div className={`flex items-center w-full ${className}`}>
-      <div style={{width: "5%", height: "5%"}}> {/* Adjust size here */}
+    <div className={clsx("flex items-center w-full space-x-5 p-5 bg-gray-100 rounded-lg shadow-md", className)}>
+      <div style={{width: 80, height: 80}}> {/* Adjust size here */}
         <CircularProgressbar 
           value={percentage} 
           text={`${Math.floor(countdown / 60)} min`} 
           styles={buildStyles({
             pathColor: `rgba(62, 152, 199, ${percentage / 100})`,
             textColor: '#000',
+            trailColor: '#ddd',
+            backgroundColor: '#fff',
           })}
         />
       </div>
       <input 
         type="range" 
-        className="flex-grow" // Add this class
+        className="slider flex-grow appearance-none bg-purple-500 height-1 rounded-full cursor-pointer"
         min={30 / 60} // 30 seconds
         max={360 / 60} // 360 seconds
         step={1 / 60} // 1 second
