@@ -24,8 +24,8 @@ const App: React.FC = () => {
   }, []);
 
   return (
-    <div className='flex items-center justify-center min-h-screen flex-col bg-gray-100 px-4 sm:px-0'>
-      <div className={`flex flex-col sm:flex-row items-center justify-between w-full sm:w-200 mb-10 p-5 bg-white rounded-lg shadow-lg transition-all duration-1000 ${animate ? 'opacity-100 transform translate-y-0' : 'opacity-0 -translate-y-10'}`}>
+    <div className='flex items-center justify-center min-h-screen flex-col bg-gray-50 px-4 sm:px-0'>
+      <div className={`flex flex-col sm:flex-row items-center justify-between w-full sm:w-200 my-10 py-5 px-4 bg-white rounded-lg shadow transition-all duration-1000 ${animate ? 'opacity-100 transform translate-y-0' : 'opacity-0 -translate-y-10'}`}>
         <ImageButton className="duration-2000 mx-2" onClick={fetchPreviousImage} disabled={currentIndex <= 0}>
           Previous
         </ImageButton>
@@ -42,20 +42,20 @@ const App: React.FC = () => {
         </ImageButton>
         {showHourGlass && <div className='w-1 h-1 border-t-4 border-blue-500 rounded-full animate-spin mx-2'></div>}
       </div>
-      <div className={`flex flex-col sm:flex-row items-center justify-between w-full sm:w-200 mb-10 p-5 bg-white rounded-lg shadow-lg transition-all duration-1000 ${animate ? 'opacity-100 transform translate-y-0' : 'opacity-0 -translate-y-10'}`}>
+      <div className={`flex flex-col sm:flex-row items-center justify-between w-full sm:w-200 my-10 py-5 px-4 bg-white rounded-lg shadow transition-all duration-1000 ${animate ? 'opacity-100 transform translate-y-0' : 'opacity-0 -translate-y-10'}`}>
         <CountdownInput
           className="mx-2"
           countdown={countdown}
           setCountdown={setCountdown}
         />
-      </div>
-      <div className='w-full sm:w-200 h-64 sm:h-200 bg-white rounded-lg shadow-lg flex items-center justify-center'>
-        <div className='relative w-full h-full flex items-center justify-center'>
-          {imageHistory[currentIndex] && <img className="absolute w-full h-full object-cover" src={imageHistory[currentIndex]} alt={altText} />}
+        <div className='w-full sm:w-200 h-64 sm:h-200 bg-white rounded-lg shadow flex items-center justify-center mt-4 sm:mt-0'>
+          <div className='relative w-full h-full flex items-center justify-center'>
+            {imageHistory[currentIndex] && <img className="absolute w-full h-full object-cover" src={imageHistory[currentIndex]} alt={altText} />}
+          </div>
         </div>
       </div>
       {/* Countdown Display */}
-      <div className='w-full sm:w-200 mt-4'>
+      <div className='w-full sm:w-200 mt-4 p-4 rounded-lg shadow bg-white'>
         <p className='text-center'>Refresh in {countdown} seconds</p>
       </div>
     </div>
