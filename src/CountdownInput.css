@@ -1,0 +1,23 @@
+.vertical-slider {
+  height: 200px; /* Adjust as needed */
+  width: 12px; /* Adjust as needed */
+  background: #ddd; /* This color will be the track color when no track element is used */
+}
+
+.thumb {
+  height: 10px; /* Adjust as needed */
+  line-height: 10px; /* Adjust as needed */
+  width: 10px; /* Adjust as needed */
+  text-align: center;
+  background-color: #a70734;
+  color: #fff;
+  border-radius: 50%;
+  cursor: grab;
+}
+
+.track {
+  top: 0;
+  bottom: 0;
+  background: #000; /* This will be the track color */
+  border-radius: 999px;
+}
