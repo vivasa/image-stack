@@ -21,3 +21,9 @@
   background: #000; /* This will be the track color */
   border-radius: 999px;
 }
+
+.rotate-progress {
+  transform: rotate(-90deg);
+  height: 350px; /* Adjust as needed */
+  width: 20px; /* You can adjust the width as per your needs */
+}

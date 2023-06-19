@@ -1,9 +1,7 @@
 import React from 'react';
-import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
-import 'react-circular-progressbar/dist/styles.css';
-import ReactSlider from 'react-slider';
-import clsx from 'clsx';
-import './CountdownInput.css';
+import Box from '@mui/material/Box';
+import Slider from '@mui/material/Slider';
+import { makeStyles } from '@mui/styles';
 
 interface CountdownInputProps {
   countdown: number;
@@ -11,39 +9,46 @@ interface CountdownInputProps {
   className?: string;
 }
 
+const useStyles = makeStyles({
+  root: {
+    height: 350, // Adjust to fit your needs
+    position: 'relative'
+  },
+  progress: {
+    position: 'absolute',
+    left: 0,
+    bottom: 0,
+    transform: 'rotate(-90deg)',
+    transformOrigin: 'bottom left',
+    height: '100%',
+    width: 20 // Adjust to fit your needs
+  },
+  slider: {
+    height: 350, // Should match with the height of root
+  }
+});
+
 const CountdownInput: React.FC<CountdownInputProps> = ({ countdown, setCountdown, className }) => {
+  const classes = useStyles();
+
   const handleChange = (value: number) => {
     setCountdown(value * 60); // converting minutes to seconds
   }
 
-  const percentage = (countdown / (6 * 60)) * 100; // convert to percentage
-
   return (
-    <div className={clsx("flex items-center space-x-5 p-5 bg-gray-100 rounded-lg shadow-md", className)}>
-      {/* <div style={{width: 80, height: 80}}>
-        <CircularProgressbar 
-          value={percentage} 
-          text={`${Math.floor(countdown / 60)} min`} 
-          styles={buildStyles({
-            pathColor: `rgba(62, 152, 199, ${percentage / 100})`,
-            textColor: '#000',
-            trailColor: '#ddd',
-            backgroundColor: '#fff',
-          })}
+    <Box sx={{ display: 'flex', alignItems: 'center', p: 5, bgcolor: 'grey.300', borderRadius: 'borderRadius', boxShadow: 1 }} className={className}>
+      <Box className={classes.root}>
+        <Slider
+          className={classes.slider}
+          orientation="vertical"
+          min={0.5}
+          max={6}
+          step={0.01}
+          value={countdown / 60}
+          onChange={(_, value) => handleChange(value as number)}
         />
-      </div> */}
-      <ReactSlider
-        className="vertical-slider"
-        thumbClassName="thumb"
-        trackClassName="track"
-        orientation="vertical"
-        min={30 / 60}
-        max={360 / 60}
-        step={1 / 60}
-        value={countdown / 60}
-        onChange={handleChange}
-      />
-    </div>
+      </Box>
+    </Box>
   )
 };
 
