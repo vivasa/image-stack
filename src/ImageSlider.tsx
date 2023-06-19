@@ -1,13 +1,8 @@
 import React from 'react';
+import clsx from 'clsx';
 
 type ImageSliderProps = {
   className?: string,
-  /**
-   * (min, max, value): These are props used to configure the HTML input element 
-   * of type "range" (the slider). min and max set the minimum and maximum values 
-   * of the slider, while value sets the current value. They are used 
-   * to control and display the current image index that the slider represents.
-   */
   min: string,
   max: number,
   value: number,
@@ -16,16 +11,16 @@ type ImageSliderProps = {
 }
 
 const ImageSlider: React.FC<ImageSliderProps> = ({ className, min, max, value, totalImages, onChange }) => (
-  <div className={`flex justify-start items-center w-full mx-10 mb-4 sm:mb-0 ${className}`}>
+  <div className={clsx("flex items-center w-full px-5 py-3 space-x-5 rounded-lg bg-gray-100 shadow-md", className)}>
+    <span className="font-semibold text-gray-700">{value + 1} / {totalImages}</span>
     <input
-      className="slider flex-grow"
+      className="slider flex-grow appearance-none bg-purple-500 height-1 rounded-full cursor-pointer"
       type="range"
       min={min}
       max={max}
       value={value}
       onChange={onChange}
     />
-    <span className="font-bold text-purple-500 px-5 py-2 rounded-lg bg-white shadow-md">{value + 1} / {totalImages}</span>
   </div>
 );
 
