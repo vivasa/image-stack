@@ -25,7 +25,7 @@ const App: React.FC = () => {
 
   return (
     <div className='flex items-center justify-center min-h-screen flex-col bg-gray-50 px-4 sm:px-0'>
-      <div className={`flex flex-col sm:flex-row items-center justify-between w-full sm:w-200 my-10 py-5 px-4 bg-white rounded-lg shadow transition-all duration-1000 ${animate ? 'opacity-100 transform translate-y-0' : 'opacity-0 -translate-y-10'}`}>
+      <div className={`flex flex-col sm:flex-row items-center justify-between w-full sm:w-200 my-2 py-5 px-4 bg-white rounded-lg shadow transition-all duration-1000 ${animate ? 'opacity-100 transform translate-y-0' : 'opacity-0 -translate-y-10'}`}>
         <ImageButton className="duration-2000 mx-2" onClick={fetchPreviousImage} disabled={currentIndex <= 0}>
           Previous
         </ImageButton>
@@ -42,15 +42,17 @@ const App: React.FC = () => {
         </ImageButton>
         {showHourGlass && <div className='w-1 h-1 border-t-4 border-blue-500 rounded-full animate-spin mx-2'></div>}
       </div>
-      <div className={`flex flex-col sm:flex-row items-center justify-between w-full sm:w-200 my-10 py-5 px-4 bg-white rounded-lg shadow transition-all duration-1000 ${animate ? 'opacity-100 transform translate-y-0' : 'opacity-0 -translate-y-10'}`}>
-        <CountdownInput
-          className="mx-2"
-          countdown={countdown}
-          setCountdown={setCountdown}
-        />
-        <div className='w-full sm:w-200 h-64 sm:h-200 bg-white rounded-lg shadow flex items-center justify-center mt-4 sm:mt-0'>
-          <div className='relative w-full h-full flex items-center justify-center'>
-            {imageHistory[currentIndex] && <img className="absolute w-full h-full object-cover" src={imageHistory[currentIndex]} alt={altText} />}
+      <div className={`flex flex-col sm:flex-row items-center justify-between w-full sm:w-200 my-2 py-5 px-4 bg-white rounded-lg shadow transition-all duration-1000 ${animate ? 'opacity-100 transform translate-y-0' : 'opacity-0 -translate-y-10'}`}>
+        <div className="flex flex-col sm:flex-row items-stretch justify-between w-full">
+          <CountdownInput
+            className="mx-2 flex-none"
+            countdown={countdown}
+            setCountdown={setCountdown}
+          />
+          <div className='flex-grow mx-2 min-h-96 bg-white rounded-lg shadow flex items-center justify-center mt-4 sm:mt-0'>
+            <div className='relative w-full h-full flex items-center justify-center'>
+              {imageHistory[currentIndex] && <img className="absolute w-full h-full object-cover" src={imageHistory[currentIndex]} alt={altText} />}
+            </div>
           </div>
         </div>
       </div>

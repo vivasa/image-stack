@@ -20,7 +20,7 @@ const CountdownInput: React.FC<CountdownInputProps> = ({ countdown, setCountdown
 
   return (
     <div className={clsx("flex items-center space-x-5 p-5 bg-gray-100 rounded-lg shadow-md", className)}>
-      <div style={{width: 80, height: 80}}> {/* Adjust size here */}
+      {/* <div style={{width: 80, height: 80}}>
         <CircularProgressbar 
           value={percentage} 
           text={`${Math.floor(countdown / 60)} min`} 
@@ -31,7 +31,7 @@ const CountdownInput: React.FC<CountdownInputProps> = ({ countdown, setCountdown
             backgroundColor: '#fff',
           })}
         />
-      </div>
+      </div> */}
       <ReactSlider
         className="vertical-slider"
         thumbClassName="thumb"
