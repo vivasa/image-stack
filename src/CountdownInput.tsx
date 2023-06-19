@@ -1,6 +1,7 @@
 import React from 'react';
 import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
+import Typography from '@mui/material/Typography';
 import { makeStyles } from '@mui/styles';
 
 interface CountdownInputProps {
@@ -11,20 +12,16 @@ interface CountdownInputProps {
 
 const useStyles = makeStyles({
   root: {
-    height: 350, // Adjust to fit your needs
-    position: 'relative'
-  },
-  progress: {
-    position: 'absolute',
-    left: 0,
-    bottom: 0,
-    transform: 'rotate(-90deg)',
-    transformOrigin: 'bottom left',
-    height: '100%',
-    width: 20 // Adjust to fit your needs
+    height: 400, // Adjust to fit your needs
+    position: 'relative',
+    display: 'flex',
+    alignItems: 'center',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    padding: '1rem'
   },
   slider: {
-    height: 350, // Should match with the height of root
+    height: '80%', // Adjust according to the padding
   }
 });
 
@@ -36,8 +33,11 @@ const CountdownInput: React.FC<CountdownInputProps> = ({ countdown, setCountdown
   }
 
   return (
-    <Box sx={{ display: 'flex', alignItems: 'center', p: 5, bgcolor: 'grey.300', borderRadius: 'borderRadius', boxShadow: 1 }} className={className}>
+    <Box sx={{ display: 'flex', alignItems: 'center', p: 1, bgcolor: 'grey.300', borderRadius: 'borderRadius', boxShadow: 1 }} className={className}>
       <Box className={classes.root}>
+        {/* <Typography variant="h6" component="div" color="textSecondary">
+          {Math.floor(countdown )} secs.
+        </Typography> */}
         <Slider
           className={classes.slider}
           orientation="vertical"
