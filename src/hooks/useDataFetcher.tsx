@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import { fetchImageFromUnsplash, fetchFromExternalApi } from './fetchers';
+import { fetchImageFromUnsplash, fetchFromExternalApi } from '../services/fetchers';
 
 // Define the enum for fetcher function names
 enum FetcherNames {

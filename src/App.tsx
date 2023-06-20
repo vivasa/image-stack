@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import useDataFetcher, { FetcherNames } from './useDataFetcher';
-import ImageButton from './ImageButton';
-import Slider from './ImageSlider';
-import CountdownInput from './CountdownInput';
+import useDataFetcher, { FetcherNames } from './hooks/useDataFetcher';
+import ImageButton from './components/ImageButton/ImageButton';
+import Slider from './components/ImageSlider/ImageSlider';
+import CountdownInput from './components/CountdownInput/CountdownInput';
 
 const App: React.FC = () => {
   const {
