@@ -4,7 +4,27 @@ import ImageButton from './ImageButton';
 import Slider from './ImageSlider';
 import CountdownInput from './CountdownInput';
 
+const fetchImageFromUnsplash = (): Promise<any> => {
+  return fetch('https://api.unsplash.com/photos/random?query=nature', {
+    headers: {
+      Authorization: `Client-ID ${process.env.REACT_APP_UNSPLASH_ACCESS_KEY}`,
+    },
+  })
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    return response.json();
+  });
+}
+
+const fetchFromExternalApi = (): Promise<any> => {
+  // This is a placeholder, replace it with your actual API call
+  return fetch('https://your-api-url.com/data');
+}
+
 const App: React.FC = () => {
+  const fetchData = process.env.REACT_APP_USE_EXTERNAL_API === 'true' ? fetchFromExternalApi : fetchImageFromUnsplash;
   const {
     imageHistory, 
     currentIndex, 
@@ -15,7 +35,7 @@ const App: React.FC = () => {
     fetchPreviousImage, 
     fetchNextImage,
     handleSliderChange
-  } = useImageFetcher();
+  } = useImageFetcher(fetchData);
 
   const [animate, setAnimate] = useState(false);
 
