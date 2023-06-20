@@ -18,11 +18,17 @@ const useStyles = makeStyles({
     alignItems: 'center',
     flexDirection: 'column',
     justifyContent: 'space-between',
-    padding: '1rem'
+    padding: '2rem'
   },
   slider: {
     height: '80%', // Adjust according to the padding
-  }
+  },
+  sliderLabel: {
+    fontSize: '1rem',
+    fontWeight: 'bold',
+    color: '#3f51b5',
+    paddingBottom: '1rem',
+  },
 });
 
 const CountdownInput: React.FC<CountdownInputProps> = ({ countdown, setCountdown, className }) => {
@@ -33,11 +39,7 @@ const CountdownInput: React.FC<CountdownInputProps> = ({ countdown, setCountdown
   }
 
   return (
-    <Box sx={{ display: 'flex', alignItems: 'center', p: 1, bgcolor: 'grey.100', borderRadius: 'borderRadius', boxShadow: 1 }} className={className}>
-      <Box className={classes.root}>
-        {/* <Typography variant="h6" component="div" color="textSecondary">
-          {Math.floor(countdown )} secs.
-        </Typography> */}
+    <Box sx={{ display: 'flex', alignItems: 'center', p: 2, bgcolor: 'grey.100', borderRadius: 'borderRadius', boxShadow: 1 }} className={className}>
         <Slider
           className={classes.slider}
           orientation="vertical"
@@ -48,7 +50,6 @@ const CountdownInput: React.FC<CountdownInputProps> = ({ countdown, setCountdown
           onChange={(_, value) => handleChange(value as number)}
         />
       </Box>
-    </Box>
   )
 };
 
