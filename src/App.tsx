@@ -3,6 +3,7 @@ import useDataFetcher, { FetcherNames } from './hooks/useDataFetcher';
 import ImageButton from './components/ImageButton/ImageButton';
 import Slider from './components/ImageSlider/ImageSlider';
 import CountdownInput from './components/CountdownInput/CountdownInput';
+import ImageFrame from './components/ImageFrame/ImageFrame';
 
 const App: React.FC = () => {
   const {
@@ -49,16 +50,17 @@ const App: React.FC = () => {
             countdown={countdown}
             setCountdown={setCountdown}
           />
-          <div className='flex-grow mx-2 min-h-96 bg-white rounded-lg shadow flex items-center justify-center mt-4 sm:mt-0'>
-            <div className='relative w-full h-full flex items-center justify-center'>
-              {dataHistory[currentIndex] && <img className="absolute w-full h-full object-cover" src={dataHistory[currentIndex]} alt={altText} />}
-            </div>
-          </div>
+          <ImageFrame 
+            className='flex-grow mx-2 min-h-96 bg-white rounded-lg shadow flex items-center justify-center mt-4 sm:mt-0'
+            src={dataHistory[currentIndex]} 
+            alt={altText} 
+            showHourGlass={showHourGlass} 
+          />
         </div>
       </div>
       {/* Countdown Display */}
       <div className='w-full sm:w-200 mt-4 p-4 rounded-lg shadow bg-white'>
-        <p className='text-center'>Refresh in {countdown} seconds</p>
+        <p className='text-center'>Refresh in {Math.round(countdown)} seconds</p>
       </div>
     </div>
   );
