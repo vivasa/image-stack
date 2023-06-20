@@ -1,4 +1,5 @@
 import React from 'react';
+import Button from '@mui/material/Button';
 
 interface ImageButtonProps {
   children: React.ReactNode;
@@ -9,17 +10,32 @@ interface ImageButtonProps {
    * cannot be clicked.
    */
   disabled: boolean;
-  className?: string;
+  sx?: any;
 }
 
-const ImageButton: React.FC<ImageButtonProps> = ({ children, onClick, disabled, className = '' }) => (
-  <button 
-    className={`p-2 text-lg rounded-lg text-white bg-gradient-to-r from-purple-500 to-blue-500 hover:from-blue-500 hover:to-purple-500 transition-all duration-500 mb-4 sm:mb-0 ${disabled ? 'opacity-50 cursor-not-allowed' : ''} ${className}`} 
+const ImageButton: React.FC<ImageButtonProps> = ({ children, onClick, disabled, sx = {} }) => (
+  <Button 
+    variant="contained"
+    size="large"
+    sx={{
+      py: 2, 
+      textTransform: 'none',
+      borderRadius: 'borderRadius', 
+      color: 'white',
+      bgcolor: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
+      '&:hover': {
+        bgcolor: 'linear-gradient(45deg, #2196F3 30%, #21CBF3 90%)',
+      }, 
+      mb: 4, 
+      sm: { mb: 0 },
+      ...(disabled ? { opacity: 0.5, cursor: 'not-allowed' } : {}),
+      ...sx
+    }} 
     onClick={onClick} 
     disabled={disabled}
   >
     {children}
-  </button>
+  </Button>
 );
 
 export default ImageButton;

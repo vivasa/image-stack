@@ -46,12 +46,16 @@ const useImageFetcher = () => {
         return response.json();
       })
       .then(data => {
-        setImageHistory((prevImages) => [...prevImages, data.urls.small]);
-        setCurrentIndex((prevIndex) => prevIndex + 1);
+        setImageHistory((prevImages) => {
+          const newImages = [...prevImages, data.urls.small];
+          setCurrentIndex(newImages.length - 1);
+          return newImages;
+        });
         setAltText(data.alt_description);
       })
       .catch(err => console.error('Error fetching image:', err));
   }, []);
+  
 
   const fetchPreviousImage = () => {
     setCurrentIndex((prevIndex) => prevIndex - 1);
@@ -65,11 +69,12 @@ const useImageFetcher = () => {
     }
   }
 
-  const handleSliderChange = (newValue: number) => {
-    if(newValue >= 0 && newValue < imageHistory.length) {
+  const handleSliderChange = (event: Event, newValue: number | number[], activeThumb: number) => {
+    if (typeof newValue === 'number' && newValue >= 0 && newValue < imageHistory.length) {
         setCurrentIndex(newValue);
     }
   }
+
 
   // Remove the hardcoded time interval and make it depend on countdown state
   useEffect(() => {

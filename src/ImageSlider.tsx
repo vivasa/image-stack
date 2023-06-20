@@ -1,27 +1,37 @@
-import React from 'react';
-import clsx from 'clsx';
+import * as React from 'react';
+import Slider from '@mui/material/Slider';
+import Box from '@mui/material/Box';
 
-type ImageSliderProps = {
-  className?: string,
-  min: string,
-  max: number,
-  value: number,
-  totalImages: number,
-  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void
+interface ImageSliderProps {
+  min: number;
+  max: number;
+  value: number;
+  totalImages: number;
+  onChange: (event: Event, newValue: number | number[], activeThumb: number) => void;
 }
 
-const ImageSlider: React.FC<ImageSliderProps> = ({ className, min, max, value, totalImages, onChange }) => (
-  <div className={clsx("flex items-center w-full px-5 py-3 space-x-5 rounded-lg bg-gray-100 shadow-md", className)}>
-    <span className="font-semibold text-gray-700">{value + 1} / {totalImages}</span>
-    <input
-      className="slider flex-grow appearance-none bg-purple-500 height-1 rounded-full cursor-pointer"
-      type="range"
-      min={min}
-      max={max}
-      value={value}
-      onChange={onChange}
-    />
-  </div>
-);
+const ImageSlider: React.FC<ImageSliderProps> = ({
+  min,
+  max,
+  value,
+  totalImages,
+  onChange,
+}) => {
+  return (
+    <Box sx={{ width: 200 }}>
+      <Slider
+        aria-label="Image slider"
+        valueLabelDisplay="auto"
+        valueLabelFormat={`${value + 1} of ${totalImages}`}
+        step={1}
+        marks
+        min={min}
+        max={max}
+        value={value}
+        onChange={onChange}
+      />
+    </Box>
+  );
+};
 
 export default ImageSlider;

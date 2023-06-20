@@ -1,18 +1,18 @@
 import React from 'react';
+import { Card, CardMedia, CircularProgress } from '@mui/material';
 
 interface ImageFrameProps {
   src: string;
   alt: string;
   showHourGlass: boolean;
+  className?: string;
 }
 
-const ImageFrame: React.FC<ImageFrameProps> = ({ src, alt, showHourGlass }) => (
-  <div className='w-full sm:w-200 h-64 sm:h-200 bg-gray-200 rounded-lg shadow-2xl flex items-center justify-center'>
-    <div className='relative w-full h-full flex items-center justify-center'>
-      {src && <img className="absolute w-full h-full object-cover" src={src} alt={alt} />}
-      {showHourGlass && <div className='w-16 h-16 border-t-4 border-blue-500 rounded-full animate-spin'></div>}
-    </div>
-  </div>
+const ImageFrame: React.FC<ImageFrameProps> = ({ src, alt, showHourGlass, className }) => (
+  <Card className={className} sx={{ width: '100%', height: '100%', position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+    {src && <CardMedia component="img" image={src} alt={alt} sx={{ position: 'absolute', width: '100%', height: '100%', objectFit: 'cover' }} />}
+    {showHourGlass && <CircularProgress />}
+  </Card>
 );
 
 export default ImageFrame;

@@ -1,8 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import useImageFetcher from './useImageFetcher';
 import ImageButton from './ImageButton';
-import Slider from './ImageSlider';
+import ImageSlider from './ImageSlider';
 import CountdownInput from './CountdownInput';
+import Box from '@mui/material/Box';
+import ImageFrame from './ImageFrame';
+import { makeStyles } from '@mui/styles';
+
+const useStyles = makeStyles({
+  imageFrame: {
+    flexGrow: 1,
+    margin: '0 2rem',
+  },
+  // other rules...
+});
 
 const App: React.FC = () => {
   const {
@@ -19,48 +30,50 @@ const App: React.FC = () => {
 
   const [animate, setAnimate] = useState(false);
 
+  const classes = useStyles();
+
   useEffect(() => {
     setAnimate(true);
   }, []);
 
   return (
-    <div className='flex items-center justify-center min-h-screen flex-col bg-gray-50 px-4 sm:px-0'>
-      <div className={`flex flex-col sm:flex-row items-center justify-between w-full sm:w-200 my-2 py-5 px-4 bg-white rounded-lg shadow transition-all duration-1000 ${animate ? 'opacity-100 transform translate-y-0' : 'opacity-0 -translate-y-10'}`}>
-        <ImageButton className="duration-2000 mx-2" onClick={fetchPreviousImage} disabled={currentIndex <= 0}>
+    <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '100vh', flexDirection: 'column', bgcolor: 'grey.50', px: 4 }}>
+      <Box sx={{ display: 'flex', flexDirection: { xs: 'column', sm: 'row' }, alignItems: 'center', justifyContent: 'between', width: '100%', sm: { width: 200 }, my: 2, py: 5, px: 4, bgcolor: 'background.paper', borderRadius: 'borderRadius', boxShadow: 1, opacity: animate ? 1 : 0, transition: 'transform 1s, opacity 1s', transform: animate ? 'translateY(0)' : 'translateY(-10px)' }}>
+        <ImageButton onClick={fetchPreviousImage} disabled={currentIndex <= 0} sx={{ mx: 2 }}>
           Previous
         </ImageButton>
-        <Slider
-            className="mx-2 flex-grow"
-            min="0"
-            max={imageHistory.length - 1} 
-            value={currentIndex} 
-            totalImages={imageHistory.length}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleSliderChange(Number(e.target.value))}
+        <ImageSlider
+          min={0}
+          max={imageHistory.length - 1}
+          value={currentIndex}
+          totalImages={imageHistory.length}
+          onChange={handleSliderChange}
         />
-        <ImageButton className="duration-2000 mx-2" onClick={fetchNextImage} disabled={showHourGlass}>
+        <ImageButton onClick={fetchNextImage} disabled={showHourGlass} sx={{ mx: 2 }}>
           {showHourGlass ? 'Loading...' : 'Next'}
         </ImageButton>
-        {showHourGlass && <div className='w-1 h-1 border-t-4 border-blue-500 rounded-full animate-spin mx-2'></div>}
-      </div>
-      <div className={`flex flex-col sm:flex-row items-center justify-between w-full sm:w-200 my-2 py-5 px-4 bg-white rounded-lg shadow transition-all duration-1000 ${animate ? 'opacity-100 transform translate-y-0' : 'opacity-0 -translate-y-10'}`}>
-        <div className="flex flex-col sm:flex-row items-stretch justify-between w-full">
+        {showHourGlass && <Box sx={{ width: 1, height: 1, border: '4px solid currentColor', borderRadius: '50%', animation: 'spin 1s linear infinite', mx: 2 }} />}
+      </Box>
+      <Box sx={{ display: 'flex', flexDirection: { xs: 'column', sm: 'row' }, alignItems: 'center', justifyContent: 'between', width: '100%', height: '100%', sm: { width: 200 }, my: 2, py: 5, px: 4, bgcolor: 'background.paper', borderRadius: 'borderRadius', boxShadow: 1, opacity: animate ? 1 : 0, transition: 'transform 1s, opacity 1s', transform: animate ? 'translateY(0)' : 'translateY(-10px)' }}>
+        <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'stretch', justifyContent: 'between', width: '100%', height: '100%' }}>
           <CountdownInput
-            className="mx-2 flex-none"
             countdown={countdown}
             setCountdown={setCountdown}
           />
-          <div className='flex-grow mx-2 min-h-96 bg-white rounded-lg shadow flex items-center justify-center mt-4 sm:mt-0'>
-            <div className='relative w-full h-full flex items-center justify-center'>
-              {imageHistory[currentIndex] && <img className="absolute w-full h-full object-cover" src={imageHistory[currentIndex]} alt={altText} />}
-            </div>
-          </div>
-        </div>
-      </div>
+          <ImageFrame
+            src={imageHistory[currentIndex]}
+            alt={altText}
+            showHourGlass={showHourGlass}
+            className={classes.imageFrame}
+          />
+        </Box>
+      </Box>
+
       {/* Countdown Display */}
-      <div className='w-full sm:w-200 mt-4 p-4 rounded-lg shadow bg-white'>
-        <p className='text-center'>Refresh in {countdown} seconds</p>
-      </div>
-    </div>
+      <Box sx={{ width: '100%', sm: { width: 200 }, mt: 4, p: 4, borderRadius: 'borderRadius', boxShadow: 1, bgcolor: 'background.paper' }}>
+        <Box sx={{ textAlign: 'center' }}>Refresh in {countdown} seconds</Box>
+      </Box>
+    </Box>
   );
 }
 
