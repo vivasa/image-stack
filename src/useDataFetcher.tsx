@@ -1,17 +1,36 @@
 import { useState, useEffect, useCallback } from 'react';
+import { fetchImageFromUnsplash, fetchFromExternalApi } from './fetchers';
 
-const useImageFetcher = (fetchData: () => Promise<any>) => {
-  const [imageHistory, setImageHistory] = useState<string[]>([]);
+// Define the enum for fetcher function names
+enum FetcherNames {
+  fetchImageFromUnsplash = 'fetchImageFromUnsplash',
+  fetchFromExternalApi = 'fetchFromExternalApi',
+  // Add more fetcher function names here as needed
+}
+
+// Define the type for the fetcher functions object
+type FetcherFunctions = Record<FetcherNames, () => Promise<any>>;
+
+const fetcherFunctions: FetcherFunctions = {
+  fetchImageFromUnsplash: fetchImageFromUnsplash,
+  fetchFromExternalApi: fetchFromExternalApi,
+  // Add more fetcher functions here as needed
+};
+
+const useDataFetcher = (fetcherName: FetcherNames) => {
+  const fetchData = fetcherFunctions[fetcherName];
+
+  const [dataHistory, setDataHistory] = useState<string[]>([]);
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [showHourGlass, setShowHourGlass] = useState<boolean>(false);
   const [countdown, setCountdown] = useState<number>(360);
   const [altText, setAltText] = useState<string>('');
 
-  const fetchImage = useCallback(() => {
+  const fetchDataAndHandle = useCallback(() => {
     setShowHourGlass(true);
     fetchData()
       .then(data => {
-        setImageHistory((prevImages) => [...prevImages, data.urls.small]);
+        setDataHistory((prevData) => [...prevData, data.urls.small]);
         setCurrentIndex((prevIndex) => prevIndex + 1);
         setAltText(data.alt_description);
         setShowHourGlass(false);
@@ -19,37 +38,37 @@ const useImageFetcher = (fetchData: () => Promise<any>) => {
       .catch(err => console.error('Error fetching data:', err));
   }, [fetchData]);
 
-  const fetchPreviousImage = () => {
+  const fetchPreviousData = () => {
     setCurrentIndex((prevIndex) => prevIndex - 1);
   }
 
-  const fetchNextImage = () => {
-    if(currentIndex === imageHistory.length - 1){
-      fetchImage();
+  const fetchNextData = () => {
+    if(currentIndex === dataHistory.length - 1){
+      fetchDataAndHandle();
     } else {
       setCurrentIndex((prevIndex) => prevIndex + 1);
     }
   }
 
   const handleSliderChange = (newValue: number) => {
-    if(newValue >= 0 && newValue < imageHistory.length) {
+    if(newValue >= 0 && newValue < dataHistory.length) {
         setCurrentIndex(newValue);
     }
   }
 
   useEffect(() => {
-    // Fetch the initial image
-    fetchImage();
+    // Fetch the initial data
+    fetchDataAndHandle();
 
-    // Setup the countdown and image fetching interval
+    // Setup the countdown and data fetching interval
     const countdownInterval = setInterval(() => {
       setCountdown(prevCountdown => {
         if (prevCountdown > 1) {
           // Decrease countdown by 1
           return prevCountdown - 1;
         } else {
-          // Fetch a new image and reset countdown
-          fetchImage();
+          // Fetch a new data and reset countdown
+          fetchDataAndHandle();
           return 360; // Reset countdown to 360 seconds
         }
       });
@@ -58,7 +77,7 @@ const useImageFetcher = (fetchData: () => Promise<any>) => {
     return () => {
       clearInterval(countdownInterval);
     };
-  }, [fetchImage]);
+  }, [fetchDataAndHandle]);
 
   useEffect(() => {
     if (countdown <= 5) {
@@ -69,17 +88,18 @@ const useImageFetcher = (fetchData: () => Promise<any>) => {
   }, [countdown]);
 
   return {
-    imageHistory, 
+    dataHistory, 
     currentIndex, 
     setCurrentIndex,
     showHourGlass, 
     countdown, 
     setCountdown, 
     altText, 
-    fetchPreviousImage, 
-    fetchNextImage,
+    fetchPreviousData, 
+    fetchNextData,
     handleSliderChange
   };
 }
 
-export default useImageFetcher;
+export default useDataFetcher;
+export { FetcherNames };
