@@ -1,7 +1,7 @@
 .vertical-slider {
   height: 350px; /* Adjust as needed */
   width: 12px; /* Adjust as needed */
-  background: #ddd; /* This color will be the track color when no track element is used */
+  background: #a71b1b95; /* This color will be the track color when no track element is used */
 }
 
 .thumb {

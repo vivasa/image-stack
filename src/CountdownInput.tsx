@@ -33,7 +33,7 @@ const CountdownInput: React.FC<CountdownInputProps> = ({ countdown, setCountdown
   }
 
   return (
-    <Box sx={{ display: 'flex', alignItems: 'center', p: 1, bgcolor: 'grey.300', borderRadius: 'borderRadius', boxShadow: 1 }} className={className}>
+    <Box sx={{ display: 'flex', alignItems: 'center', p: 1, bgcolor: 'grey.100', borderRadius: 'borderRadius', boxShadow: 1 }} className={className}>
       <Box className={classes.root}>
         {/* <Typography variant="h6" component="div" color="textSecondary">
           {Math.floor(countdown )} secs.

@@ -20,12 +20,12 @@ const useImageFetcher = () => {
    */
   const [showHourGlass, setShowHourGlass] = useState<boolean>(false);
   /**
-   * This is a countdown timer that starts from 90 seconds and decreases 
+   * This is a countdown timer that starts from 360 seconds and decreases 
    * by one every second. When it reaches zero, a new image is fetched and 
-   * the countdown is reset to 90 seconds. This is used to automatically 
-   * fetch a new image every 90 seconds.
+   * the countdown is reset to 360 seconds. This is used to automatically 
+   * fetch a new image every 360 seconds.
    */
-  const [countdown, setCountdown] = useState<number>(90);
+  const [countdown, setCountdown] = useState<number>(360);
   /**
    * This stores the alternative text description for the current image fetched 
    * from the Unsplash API. It is used for accessibility purposes, providing a 
@@ -87,7 +87,7 @@ const useImageFetcher = () => {
         } else {
           // Fetch a new image and reset countdown
           fetchImage();
-          return 90; // Reset countdown to 90 seconds
+          return 360; // Reset countdown to 360 seconds
         }
       });
     }, 1000); // Run every second
